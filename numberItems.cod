@@ -1,0 +1,5 @@
+dim index = 1
+do
+job.item[index].number = index
+index = index + 1
+loop until index = job.items + 1

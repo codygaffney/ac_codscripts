@@ -1,0 +1,21 @@
+dim msg = "LISTING:"
+dim cr = ascii(10)
+dim st = ascii(9)
+dim dt = ascii(9) + ascii(9)
+
+msg = msg + cr
+
+msg = msg + cr + "Material = " + st + item.material
+msg = msg + cr + "CosyByLength = " + st + item.costbylength
+msg = msg + cr + "Weight = " + st + item.weight
+msg = msg + cr + "WeightLock = " + st + item.weightlock
+msg = msg + cr + "WireGauge = " + st + item.wiregauge
+msg = msg + cr + "Gauge = " + st + item.gauge
+msg = msg + cr + "GaugeLock = " + st + item.gaugelock
+msg = msg + cr + "Mrate = " + st + item.pricelist
+msg = msg + cr + "Erate = " + st + item.installtable
+msg = msg + cr + "FRate = " + st + item.fabtable
+msg = msg + cr + "extra etime min = " + st + item.extraetime
+msg = msg + cr + "extra ftime min = " + st + item.extraftime
+msg = msg + cr + "Mrate? = " + st + item.product.hasarea
+debug msg

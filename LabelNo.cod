@@ -1,0 +1,6 @@
+dim i
+dim startNum = inputbox("Start Number")
+for i = 1 to job.items
+job.item[i].pallet = startNum
+startNum = startNum + 1
+next i

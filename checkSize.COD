@@ -1,0 +1,320 @@
+rem remove seam from duct
+rem if item.seam[1].value = "PITTS-L" then
+rem item.seam[1].locked = 0
+rem endif
+rem if item.seam[1].value = "RAS" then
+rem item.seam[1].locked = 0
+rem endif
+
+rem SPIGOTS
+function changeSpigot()
+if item.dim["Length"].value < 300 then
+item.dim["Length"].value = 300
+endif
+endfunction
+
+rem STRAIGHTS
+function changeStraightCoil()
+item.costbylength = 1
+endfunction
+
+function changeStraightCut()
+item.costbylength = 0
+if item.dim["Length"].value < 300 then
+item.dim["Length"].value = 300
+endif
+endfunction
+
+rem SHOE
+function changeShoe()
+item.costbylength = 0
+item.dim["Bottom Extension"].value = 100
+if item.dim["Height"].value < 300 then
+item.dim["Height"].value = 300
+endif
+item.dim["Top Extension"].value = item.dim["Height"].value - 100
+endfunction
+
+rem OFFSET
+function changeOffset()
+item.costbylength = 0
+if item.dim["Length"].value < 800 then
+item.dim["Length"].value = 800
+item.dim["Offset Width"].value = 200
+endif
+item.dim["Left Extension"].value = 50
+item.dim["Right Extension"].value = 50
+endfunction
+
+rem GRILLES
+function changeGrille()
+item.costbylength = 0
+if item.dim["Length"].value < 500 then
+item.dim["Length"].value = 500
+endif
+endfunction
+
+rem GRILLES
+function changeSlot()
+item.costbylength = 0
+if item.dim["Top Height"].value < 500 then
+item.dim["Top Height"].value = 500
+endif
+endfunction
+
+
+rem SQRDs
+function changeSQRD()
+item.costbylength = 0
+if item.dim["Length"].value < 1000 then
+item.dim["Length"].value = 1000
+endif
+item.dim["Extension"].value = 50
+item.dim["Collar"].value = 50
+rem item.dim["Offset Width"].value = "Central"
+rem item.dim["Offset Depth"].value = "Central"
+endfunction
+
+rem TAPERS
+function changeTaper()
+item.costbylength = 0
+dim width
+dim depth
+if item.dim["Width In"].value + item.dim["Depth In"].value  < item.dim["Width Out"].value +  item.dim["Depth Out"].value then
+width = item.dim["Width Out"].value
+depth = item.dim["Depth Out"].value
+else
+width = item.dim["Width In"].value
+depth = item.dim["Depth In"].value
+endif
+item.dim["Width In"].value = width
+item.dim["Depth In"].value = depth
+item.dim["Width Out"].value = width * 0.80
+item.dim["Depth Out"].value = depth * 0.80
+item.dim["Extension In"].value = 50
+item.dim["Extension Out"].value = 50
+item.dim["Offset Width"].value = "Central"
+item.dim["Offset Depth"].value = "Central"
+if item.dim["Length"].value < 500 then
+item.dim["Length"].value = 500
+endif
+endfunction
+
+rem BENDS
+function changeRadBend()
+item.costbylength = 0
+if item.dim["Angle"].value < 90 and item.dim["Angle"].value > 45 then
+item.dim["Angle"].value = 90
+else if item.dim["Angle"].value < 45 then
+item.dim["Angle"].value = 45
+endif
+if item.dim["Inner Radius"].value < (item.dim["Width"].value / 2) then
+item.dim["Inner Radius"].value = (item.dim["Width"].value / 2)
+endif
+if item.dim["Top Extension"].value < 50 or item.dim["Top Extension"].value > 50  then
+item.dim["Top Extension"].value = 50
+endif
+if item.dim["Bottom Extension"].value < 50 or item.dim["Bottom Extension"].value > 50 then
+item.dim["Bottom Extension"].value = 50
+endif
+endfunction
+
+function changeSqBend()
+item.costbylength = 0
+if item.dim["Top Inner Extension"].value < 100 then
+item.dim["Top Inner Extension"].value = 100
+endif
+if item.dim["Bottom Extension"].value < 100 then
+item.dim["Bottom Extension"].value = 100
+endif
+if item.dim["Angle"].value < 90 and item.dim["Angle"].value > 45 then
+item.dim["Angle"].value = 90
+else if item.dim["Angle"].value < 45 then
+item.dim["Angle"].value = 45
+endif
+endfunction
+
+function changeElbow()
+item.costbylength = 0
+if item.dim["Top Extension"].value < 100 then
+item.dim["Top Extension"].value = 100
+endif
+if item.dim["Bottom Extension"].value < 100 then
+item.dim["Bottom Extension"].value = 100
+endif
+if item.dim["Angle"].value < 90 and item.dim["Angle"].value > 45 then
+item.dim["Angle"].value = 90
+else if item.dim["Angle"].value < 45 then
+item.dim["Angle"].value = 45
+endif
+if item.dim["Top Width"].value < item.dim["Btm Width"].value then
+item.dim["Top Width"].value = item.dim["Btm Width"].value
+else
+item.dim["Btm Width"].value = item.dim["Top Width"].value
+endif
+endfunction
+
+function change45()
+item.costbylength = 0
+if item.dim["Top Inner Extension"].value < 100 then
+item.dim["Top Inner Extension"].value = 100
+endif
+if item.dim["Bottom Extension"].value < 100 then
+item.dim["Bottom Extension"].value = 100
+endif
+if item.dim["Angle"].value < 90 and item.dim["Angle"].value > 45 then
+item.dim["Angle"].value = 90
+else if item.dim["Angle"].value < 45 then
+item.dim["Angle"].value = 45
+endif
+endfunction
+
+
+rem TEEs
+function changeTee()
+item.costbylength = 0
+if item.dim["Btm Width"].value > item.dim["Left Width"].value and item.dim["Btm Width"].value > item.dim["Right Width"].value then
+item.dim["Left Width"].value = item.dim["Btm Width"].value
+item.dim["Right Width"].value = item.dim["Btm Width"].value
+else if item.dim["Left Width"].value > item.dim["Btm Width"].value and item.dim["Left Width"].value > item.dim["Right Width"].value then
+item.dim["Btm Width"].value = item.dim["Left Width"].value
+item.dim["Right Width"].value = item.dim["Left Width"].value
+else if item.dim["Right Width"].value > item.dim["Btm Width"].value and item.dim["Right Width"].value > item.dim["Left Width"].value then
+item.dim["Btm Width"].value = item.dim["Right Width"].value
+item.dim["Left Width"].value = item.dim["Right Width"].value
+endif
+if item.dim["Bottom Extension"].value < 100 then
+item.dim["Bottom Extension"].value = 100
+endif
+if item.dim["Right Extension"].value < 100 then
+item.dim["Right Extension"].value = 100
+endif
+if item.dim["Left Extension"].value < 100 then
+item.dim["Left Extension"].value = 100
+endif
+endfunction
+
+function changeRadiusTee()
+item.costbylength = 0
+if item.dim["Btm Width"].value > item.dim["Left Width"].value and item.dim["Btm Width"].value > item.dim["Right Width"].value then
+item.dim["Left Width"].value = item.dim["Btm Width"].value
+item.dim["Right Width"].value = item.dim["Btm Width"].value
+else if item.dim["Left Width"].value > item.dim["Btm Width"].value and item.dim["Left Width"].value > item.dim["Right Width"].value then
+item.dim["Btm Width"].value = item.dim["Left Width"].value
+item.dim["Right Width"].value = item.dim["Left Width"].value
+else if item.dim["Right Width"].value > item.dim["Btm Width"].value and item.dim["Right Width"].value > item.dim["Left Width"].value then
+item.dim["Btm Width"].value = item.dim["Right Width"].value
+item.dim["Left Width"].value = item.dim["Right Width"].value
+endif
+if item.dim["Right Radius"].value < 150 then
+item.dim["Right Radius"].value = 150
+endif
+if item.dim["Left Radius"].value < 150 then
+item.dim["Left Radius"].value = 150
+endif
+if item.dim["Btm Right Extension"].value < 50 then
+item.dim["Btm Right Extension"].value = 50
+endif
+if item.dim["Btm Left Extension"].value < 50 then
+item.dim["Btm Left Extension"].value = 50
+endif
+if item.dim["Right Extension"].value < 50 then
+item.dim["Right Extension"].value = 50
+endif
+if item.dim["Left Extension"].value < 50 then
+item.dim["Left Extension"].value = 50
+endif
+endfunction
+
+function changeCapEnd()
+item.costbylength = 0
+if item.dim["Turnover"].value < 100 then
+item.dim["Turnover"].value = 100
+endif
+endfunction
+
+function changeReducingBend()
+item.costbylength = 0
+if item.dim["Angle"].value < 90 and item.dim["Angle"].value > 45 then
+item.dim["Angle"].value = 90
+else if item.dim["Angle"].value < 45 then
+item.dim["Angle"].value = 45
+endif
+if item.dim["Inner Radius"].value < (item.dim["Top Width"].value / 2) then
+item.dim["Inner Radius"].value = (item.dim["Top Width"].value / 2)
+endif
+if item.dim["Top Width"].value < item.dim["Btm Width"].value then
+item.dim["Top Width"].value = item.dim["Btm Width"].value
+else
+item.dim["Btm Width"].value = item.dim["Top Width"].value
+endif
+item.dim["Top Extension"].value = 50
+item.dim["Bottom Extension"].value = 50
+endfunction
+
+
+
+
+select item.description
+case "Spigot"
+changeSpigot()
+case "Straight (Coil)"
+changeStraightCoil()
+case "Straight (Cut)"
+changeStraightCut()
+case "Straight"
+changeStraightCoil()
+case "Shoe"
+changeShoe()
+case "Offset"
+changeOffset()
+case "Mitred Offset"
+changeOffset()
+case "Grille Box"
+changeGrille()
+case "Slot Plenum"
+changeSlot()
+case "Grille Box Variable Hole"
+changeGrille()
+case "Grille Box (Top Entry)"
+changeGrille()
+case "Sq. to Round"
+changeSQRD()
+case "Square to Round"
+changeSQRD()
+case "Square to Round (Offset)"
+changeSQRD()
+case "Taper"
+changeTaper()
+case "Taper R"
+changeTaper()
+case "Transition (Female Ext Removed)"
+changeTaper()
+case "90 Rad. Bend"
+changeRadBend()
+case "90 Rad. Bend R"
+changeRadBend()
+case "Radius Bend"
+changeRadBend()
+case "Radius Bend B45"
+changeRadBend()
+case "90 Sq. Bend"
+changeSqBend()
+case "Square Bend"
+changeSqBend()
+case "Elbow"
+changeElbow()
+case "45 Sq. Bend"
+change45()
+case "Tee"
+changeTee()
+case "Radius Tee"
+changeRadiusTee()
+case "Mez Cap End"
+changeCapEnd()
+case "Reducing Bend"
+changeReducingBend()
+endselect
+
+
+item.update()
